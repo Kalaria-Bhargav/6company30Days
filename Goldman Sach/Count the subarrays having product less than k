@@ -1,0 +1,42 @@
+class Solution{
+  public:
+    
+    int rangeSum(int noEle){
+        return noEle*(noEle+1)/2;
+    }
+    
+    int countSubArrayProductLessThanK(const vector<int>& a, int n, long long k) {
+            int cntEle = 0;
+            long long sum = 1;
+            int ans = 0;
+            int idx = 0;
+            for(int i =0;i<n;i++){
+                if(sum * a[i] < k){
+                    cntEle++;
+                    sum *= a[i];
+                    ans += cntEle;
+                    // cout << cntEle << " " << sum << endl;
+                }else{
+                    sum *= a[i];
+                    cntEle++;
+                    if(a[i] >= k || idx == i){
+                        idx = i+1;
+                        sum = 1;
+                        cntEle = 0;
+                        continue;
+                    }
+                    while(idx < i && sum >= k){
+                        sum =sum/((long long)a[idx]);
+                        idx++;
+                        cntEle--;
+                    }
+                    // cout << i << " " << idx << " " << cntEle << " " << sum << endl;
+                    ans += cntEle;
+                }
+                
+                // cout << ans<< endl << endl;
+            }
+            
+            return ans;
+    }
+};
