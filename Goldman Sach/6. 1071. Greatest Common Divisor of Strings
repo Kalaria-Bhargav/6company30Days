@@ -1,0 +1,28 @@
+class Solution {
+public:
+    string gcdOfStrings(string str1, string str2) {
+        int n = str1.length();
+        int m = str2.length();
+        if(n < m)
+            swap(str1,str2), swap(n,m);
+        string s1 = str1,s2 = str2;
+        
+        while(s1.length() >= 2 * s2.length()){
+            s2 += s2;
+        }
+        int til = s1.length()-s2.length();
+        for(int i=0;i<til;i++){
+            s2 += s2[i];
+        }
+        // cout <<s1 <<" " << s2 << endl;
+        if(s1 != s2)
+            return "";
+        
+        int gcd = __gcd(n,m);
+        string ans = "";
+        for(int i = 0;i<gcd;i++){
+        ans += str2[i];
+        }
+        return ans;
+    }
+};
