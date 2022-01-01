@@ -1,0 +1,27 @@
+string encode(string src)
+{     
+  string encodedString = "" ;
+  char ch = src[0];
+  int cnt = 1;
+  int n = src.length();
+  if(n == 1){
+      
+      return (src + "1");
+  }
+  for(int i=1;i<n;i++){
+    if(ch == src[i]){
+        cnt++;
+    }else{
+        encodedString += ch;
+        encodedString += ('0'+cnt);
+        ch = src[i];
+        cnt = 1;
+    }
+    if(i+1 >= n){
+        encodedString += ch;
+        encodedString += ('0'+cnt);
+    }
+  }
+  
+  return encodedString;
+}    
