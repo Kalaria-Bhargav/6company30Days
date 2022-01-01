@@ -1,0 +1,24 @@
+	ull getNthUglyNo(int n) {
+	    //here we dont need more than 5 * n number for n ugly number 
+	    // because if we only take 5 than 5*n th number will be n th ugly number 
+	    // but we have 2 and 3 also therefore we need less than that
+	    
+	   vector<ull> markUgly(n+5,0);
+	   markUgly[0] = 1;
+	   ull  Two = 0, Three = 0, Five = 0;
+	   //int minEle;
+	   for(int i=1;i<n;i++){
+	       markUgly[i]  = min(markUgly[Two]*2, min(markUgly[Three]*3, markUgly[Five]*5));
+	       
+	       if(markUgly[i] ==  markUgly[Two]*2)
+	       Two++;
+	        if(markUgly[i] ==  markUgly[Three]*3)
+	       Three++;
+	        if(markUgly[i] ==  markUgly[Five]*5)
+	       Five++;
+	       
+	       //cout << markUgly[i] << endl;
+	   }
+	    
+	  return markUgly[n-1];
+	}
