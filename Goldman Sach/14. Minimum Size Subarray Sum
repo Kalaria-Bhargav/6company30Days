@@ -1,0 +1,22 @@
+class Solution {
+public:
+    int minSubArrayLen(int target, vector<int>& nums) {
+        int curSum = 0;
+        int prvIndex = 0;
+        int n = nums.size();
+        int minLen = n+10;
+        
+        for(int i = 0 ; i < n ; i++){
+            curSum += nums[i];
+            if(curSum >= target){
+                while(prvIndex <= i && curSum >= target + nums[prvIndex]){
+                    curSum -= nums[prvIndex];
+                    prvIndex++;
+                }
+                minLen = min(minLen, i - prvIndex+1);
+            }
+        }
+        
+        return minLen > n ? 0 : minLen;
+    }
+};
