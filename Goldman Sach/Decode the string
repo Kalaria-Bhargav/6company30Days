@@ -1,0 +1,45 @@
+class Solution{
+public:
+    string decodedString(string s){
+        string decoded = "", Num;
+        int n = s.length(), cnt = 0;
+        
+        
+        for(int i=0;i<n;i++){
+            if(s[i] >= 'a' && s[i] <= 'z'){
+                decoded += s[i];
+            }else{
+                 Num = "";
+                while(i < n && s[i] != '[')
+                Num += s[i], i++;
+                
+                
+                 cnt = 1;
+                string str = "";
+                 i++;
+                while(i < n && cnt > 0){
+                    
+                    if(s[i] == '[')
+                        cnt++;
+                     if(s[i] == ']')
+                        cnt--;
+                        
+                    if(cnt == 0)
+                    break;
+                    
+                    str+= s[i];
+                    i++;
+                }
+                
+                
+                string ans = decodedString(str);
+               
+                 cnt =stoi(Num);
+                
+                while(cnt--)
+                decoded += ans;
+            }
+        }
+        return decoded;
+    }
+};
