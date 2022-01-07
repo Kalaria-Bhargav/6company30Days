@@ -1,0 +1,56 @@
+class Solution {
+  public:
+  // finding diameter = leftlen + rightlen
+    map<int, Node*>mp;
+    Node* targetAdd;
+    unordered_map<int, bool>vis;
+    
+    void findParent(Node* root, Node *parent, int target){
+      if(root == NULL)
+      return;
+    
+        if(target == root->data){
+            targetAdd = root;
+        }
+        
+      
+      mp[root->data] = parent;
+      findParent(root->left, root, target);
+      findParent(root->right, root, target);
+  }
+  
+  int getDist(Node *root){
+      if(root == NULL)
+      return 0;
+      
+      int mx = 0;
+      vis[root->data] = 1;
+      
+      
+      if(root->left){
+          if(!vis[root->left->data]){
+          mx = max(mx, getDist(root->left)+1);
+      }
+      }
+      
+      if(root->right){
+          if(!vis[root->right->data]){
+          mx = max(mx, getDist(root->right)+1);
+      }
+      }
+      
+      if(mp[root->data] != NULL && !vis[mp[root->data]->data]){
+          mx = max(mx, getDist(mp[root->data])+1);
+      }
+      
+      return mx;
+  }
+   
+    int minTime(Node* root, int target) 
+    {
+        findParent(root, NULL, target);
+        return getDist(targetAdd);
+        
+        
+    }
+};
