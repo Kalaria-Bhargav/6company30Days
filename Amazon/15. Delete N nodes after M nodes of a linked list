@@ -1,0 +1,32 @@
+class Solution
+{
+    public:
+    void linkdelete(struct Node  *head, int M, int N)
+    {
+        int tm = M, tn = N;
+        Node *cur =  head;
+        while(cur != NULL){
+            M = tm, N = tn;
+            M--;
+            while(M > 0 && cur != NULL){
+                M--;
+                cur = cur->next;
+            }
+           
+            if(cur == NULL){
+                return;
+            }
+            
+            Node *prev = cur;
+            N++;
+            while(N > 0 && cur != NULL){
+                N--;
+                cur = cur->next;
+            }
+    
+            prev->next = cur;
+        }
+
+        
+    }
+};
