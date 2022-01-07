@@ -1,0 +1,51 @@
+// Top Down : 
+class Solution {
+  public:
+    
+    int dp[505][205][2];
+    
+    int profit(int N, int i, int a[], bool stockOwn, int K){
+        if(K == 0 || N == i)
+        return 0;
+        
+        if(dp[i][K][stockOwn] != -1)
+        return dp[i][K][stockOwn];
+        int opt1, opt2;
+        if(stockOwn){
+             opt1 = a[i] + profit(N, i+1, a, 0, K-1);
+             opt2 = profit(N, i+1, a, 1, K);
+         
+        }else{
+             opt1 = -a[i] + profit(N, i+1, a, 1, K);
+             opt2 = profit(N, i+1, a, 0, K);
+        }
+           return dp[i][K][stockOwn] =  max(opt1, opt2);
+    }
+  
+    int maxProfit(int K, int N, int A[]) {
+        memset(dp, -1, sizeof dp);
+        profit(N, 0, A, 0, K);
+    }
+};
+
+// Bottom up : 
+
+    int profit(int N, int i, int a[], bool stockOwn, int K){
+        int dp[K+1][N+1];
+        memset(dp, 0, sizeof dp);
+        
+        for(int i=1; i<=K; i++){
+            int mx = INT_MIN;
+            for(int j=1;j<N;j++){
+                mx = max(mx,dp[i-1][j-1] - a[j-1]);
+                dp[i][j] = max(dp[i][j-1], mx+a[j]);
+            }
+        }
+        return dp[K][N-1];
+    }
+  
+    int maxProfit(int K, int N, int A[]) {
+    
+        return profit(N, 0, A, 0, K);
+    }
+};
