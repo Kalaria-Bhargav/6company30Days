@@ -1,0 +1,43 @@
+class Solution
+{
+    public:
+    vector<int>ans;w
+    //Function to serialize a tree and return a list containing nodes of tree.
+    
+    void getEle(Node *root){
+        if(root == NULL)
+            return;
+        
+        getEle(root->left);
+        ans.push_back(root->data);
+        getEle(root->right);
+    }
+    
+    vector<int> serialize(Node *root) 
+    {
+        ans.clear();
+        getEle(root);
+        
+        return ans;
+    }
+    
+    //Function to deserialize a list and construct the tree.
+    Node *makeNode(int data){
+        Node* node =new Node(data);
+        
+        return node;
+    }
+    Node * deSerialize(vector<int> &A)
+    {
+       Node *root = makeNode(A[0]);
+       int n = A.size();
+       Node *tp = root;
+       for(int i=1; i<n; i++){
+           tp->right = makeNode(A[i]);
+           tp = tp->right;
+       }
+       
+       return root;
+    }
+
+};
